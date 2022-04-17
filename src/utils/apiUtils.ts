@@ -8,7 +8,9 @@ export const request = async <T>(
   let payload: string;
   let url: string;
   const token = localStorage.getItem('token');
-  const auth = token ? 'Token ' + localStorage.getItem('token') : '';
+  const auth = 'Token ' + localStorage.getItem('token') ?? '';
+  const headers = new Headers();
+  if (token) headers.append('Authorization', auth);
 
   if (method === 'GET') {
     const reqParams = data
@@ -20,16 +22,16 @@ export const request = async <T>(
     url = `${API_BASE_URL}/${endpoint}/${reqParams}`;
   } else {
     payload = data ?? '';
+    if (!(data instanceof FormData)) {
+      headers.append('Content-Type', 'application/json');
+      if (payload) payload = JSON.stringify(payload);
+    }
     url = `${API_BASE_URL}/${endpoint}/`;
   }
 
   const response = await fetch(url, {
     method,
-    headers: token
-      ? {
-          Authorization: auth,
-        }
-      : {},
+    headers,
     body: method !== 'GET' ? payload : null,
   });
 

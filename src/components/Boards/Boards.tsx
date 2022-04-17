@@ -5,10 +5,12 @@ import { useBoards } from '../../utils';
 import BoardCard from './BoardCard';
 import Modal from '../common/Modal';
 import { useState } from 'react';
+import NewBoardForm from './NewBoard';
 
 const Boards = () => {
   const { data, isLoading } = useBoards();
-  const [newModalOpen, setNewModalOpen] = useState(true);
+  const [newModalOpen, setNewModalOpen] = useState(false);
+
   if (isLoading) return <div>loading...</div>;
 
   return (
@@ -22,9 +24,6 @@ const Boards = () => {
             setNewModalOpen(true);
           }}
         />
-        <Modal closeModalCB={() => setNewModalOpen(false)} open={newModalOpen}>
-          <div>hello world</div>
-        </Modal>
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {data?.results &&
@@ -32,6 +31,9 @@ const Boards = () => {
             <BoardCard key={board.id} board={board} />
           ))}
       </div>
+      <Modal closeModalCB={() => setNewModalOpen(false)} open={newModalOpen}>
+        <NewBoardForm closeModalCB={() => setNewModalOpen(false)} />
+      </Modal>
     </Layout>
   );
 };
