@@ -1,7 +1,12 @@
-import { ReactNode } from 'react';
-
-declare module 'react-query/types/react/QueryClientProvider' {
-  interface QueryClientProviderProps {
-    children?: ReactNode;
-  }
+interface IBoard {
+  id: number;
+  title: string;
+  description?: string;
 }
+
+type Paginated<T> = {
+  count: number;
+  next: string;
+  previous: string;
+  results: T[];
+};

@@ -21,9 +21,9 @@ const SideNav = () => {
   };
 
   return (
-    <div className='w-60 h-screen shadow-md bg-white py-3 flex flex-col justify-between'>
+    <div className='flex-shrink-0 w-60 h-screen shadow-md bg-white py-3 flex flex-col justify-between'>
       <nav>
-        <div className='border-b py-2 px-6 text-4xl font-semibold text-gray-700'>
+        <div className='border-b py-2 px-6 text-3xl font-semibold text-gray-700'>
           Kanban
         </div>
         <ul className='pt-3 px-2 flex flex-col gap-2'>

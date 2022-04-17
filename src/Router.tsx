@@ -5,6 +5,7 @@ import { AppWrapper } from './components/Layout';
 const Login = lazy(() => import('./components/Login'));
 const Signup = lazy(() => import('./components/Signup'));
 const Home = lazy(() => import('./components/Home'));
+const Boards = lazy(() => import('./components/Boards'));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/boards' element={<Boards />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
           </Routes>
