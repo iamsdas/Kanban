@@ -7,8 +7,8 @@ const NavButton = (props: { to: string; children: ReactNode }) => {
       <NavLink
         to={props.to}
         className={(link) =>
-          'flex flex-nowrap items-center text-md py-4 px-4 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out ' +
-          (link.isActive ? 'bg-neutral-100' : '')
+          'flex flex-nowrap items-center text-md py-4 px-4 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 transition duration-300 ease-in-out ' +
+          (link.isActive ? 'bg-neutral-100' : 'hover:bg-neutral-50')
         }>
         {props.children}
       </NavLink>

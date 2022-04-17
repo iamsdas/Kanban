@@ -1,10 +1,10 @@
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
-export const request = async (
+export const request = async <T>(
   endpoint: string,
   method: string = 'GET',
   data: any = null
-) => {
+): Promise<T> => {
   let payload: string;
   let url: string;
   const token = localStorage.getItem('token');
@@ -25,10 +25,11 @@ export const request = async (
 
   const response = await fetch(url, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: auth,
-    },
+    headers: token
+      ? {
+          Authorization: auth,
+        }
+      : {},
     body: method !== 'GET' ? payload : null,
   });
 

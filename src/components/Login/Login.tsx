@@ -1,14 +1,28 @@
-import { FormEvent } from 'react';
-import { request } from '../../utils';
+import { FormEvent, useEffect } from 'react';
+import { request, useUser } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { data, isError } = useUser();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (data?.username && !isError) navigate('/');
+  }, [data]);
+
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    localStorage.removeItem('token');
     const input = new FormData(e.target as HTMLFormElement);
     try {
-      const res = await request('auth-token', 'POST', input);
+      const res = await request<{ token: string }>('auth-token', 'POST', input);
       localStorage.setItem('token', res.token);
+      queryClient.invalidateQueries('user');
+      navigate('/');
     } catch (error) {
+      localStorage.removeItem('token');
       console.error(error);
     }
   };
