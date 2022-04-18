@@ -5,10 +5,9 @@ export default function Signup() {
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const input = new FormData(e.target as HTMLFormElement);
-    const parsedInput = JSON.stringify(Object.fromEntries(input));
     try {
       localStorage.removeItem('token');
-      const res = await request('auth/registration', 'POST', parsedInput);
+      const res = await request('auth/registration', 'POST', input);
       console.log(res);
     } catch (error) {
       console.error(error);
