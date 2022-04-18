@@ -7,7 +7,9 @@ import TaskCard from './TaskCard';
 const StageCard = ({ stage }: { stage: IStage }) => {
   const queryClient = useQueryClient();
   const { data } = useTasks(stage.board);
-  const tasks = data?.results?.filter((item) => item.status === stage.id);
+  const tasks = data?.results?.filter(
+    (item) => item.status === stage.id && item.completed === false
+  );
 
   const mutation = useMutation(
     () => {

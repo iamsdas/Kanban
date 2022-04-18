@@ -8,6 +8,7 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
   const [title, setTitle] = useState(props.task.title);
   const [description, setDesc] = useState(props.task.description);
   const [status, setStatus] = useState(props.task.status);
+  const [date, setDate] = useState(props.task.due_date ?? '');
   const { data } = useStages(props.task.board);
   const stages = data;
 
@@ -16,6 +17,7 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
     title,
     description,
     status,
+    due_date: date,
   };
 
   const mutation = useMutation(
@@ -67,6 +69,16 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
           onChange={(e) => setDesc(e.target.value)}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
+      <div className='flex flex-col justify-between py-2 gap-1'>
+        <label htmlFor='date'>Due Date</label>
+        <input
+          name='due_date'
+          id='date'
+          type='date'
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></input>
+      </div>
       <div className='flex flex-col justify-between py-2 gap-1 pb-4'>
         <label htmlFor='status'>Description</label>
         <select
@@ -77,7 +89,9 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'>
           {stages &&
             stages.map((status) => (
-              <option value={status.id}>{status.title}</option>
+              <option key={status.id} value={status.id}>
+                {status.title}
+              </option>
             ))}
         </select>
       </div>

@@ -41,6 +41,14 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
           rows={2}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
+      <div className='flex flex-col justify-between py-2 gap-1'>
+        <label htmlFor='date'>Due Date</label>
+        <input
+          name='due_date'
+          id='date'
+          type='date'
+          className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></input>
+      </div>
       <div className='py-2 pb-4'>
         <select
           name='status'

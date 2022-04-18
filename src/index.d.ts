@@ -15,7 +15,7 @@ interface ITask {
   title: string;
   board: number;
   status: number;
-  dueDate: string;
+  due_date: string | null;
   description: string;
   completed: boolean;
 }
