@@ -1,6 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
-import OutlineButton from './OutlineButton';
 
 export default function Modal({
   children,
