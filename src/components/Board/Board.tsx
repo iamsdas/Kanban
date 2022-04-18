@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBoard, useStages } from '../../utils';
+import Loader from '../common/Loader';
 import Modal from '../common/Modal';
 import OutlineButton from '../common/OutlineButton';
 import Layout from '../Layout';
@@ -18,9 +19,9 @@ const Board = () => {
 
   if (boardQuery.isLoading || stagesQuery.isLoading)
     return (
-      <div className='flex justify-center items-center h-screen bg-neutral-100'>
-        loading...
-      </div>
+      <Layout>
+        <Loader />
+      </Layout>
     );
 
   const { title } = boardQuery.data!;

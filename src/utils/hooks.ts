@@ -19,3 +19,6 @@ export const useTasks = (id: number) =>
   useQuery(['tasks', id], () =>
     request<Paginated<ITask>>(`boards/${id}/tasks`)
   );
+
+export const useGlobalTasks = (date: string) =>
+  useQuery(['tasks', date], () => request<ITask[]>(`tasks`, 'GET', { date }));

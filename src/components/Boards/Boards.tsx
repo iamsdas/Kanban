@@ -6,12 +6,18 @@ import BoardCard from './BoardCard';
 import Modal from '../common/Modal';
 import { useState } from 'react';
 import NewBoardForm from './NewBoard';
+import Loader from '../common/Loader';
 
 const Boards = () => {
   const { data, isLoading } = useBoards();
   const [newModalOpen, setNewModalOpen] = useState(false);
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading)
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    );
 
   return (
     <Layout>

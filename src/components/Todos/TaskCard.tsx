@@ -25,9 +25,14 @@ const TaskCard = ({ task }: { task: ITask }) => {
   );
 
   return (
-    <div className='p-4 mb-4 bg-neutral-100 rounded-lg'>
+    <div className='p-4 mb-4 bg-white rounded-lg'>
       <div className='flex justify-between items-center'>
-        <div className='font-semibold text-lg capitalize'>{task.title}</div>
+        <div
+          className={`font-semibold text-lg capitalize ${
+            task.completed ? 'line-through' : ''
+          }`}>
+          {task.title}
+        </div>
 
         <div className='flex gap-1 flex-nowrap items-center'>
           <OutlineButton
@@ -44,7 +49,9 @@ const TaskCard = ({ task }: { task: ITask }) => {
           />
         </div>
       </div>
-      <div>{task.description}</div>
+      <div className={`${task.completed ? 'line-through' : ''}`}>
+        {task.description}
+      </div>
       <Modal closeModalCB={() => setModalOpen(false)} open={modalOpen}>
         <EditTask task={task} closeModalCB={() => setModalOpen(false)} />
       </Modal>
