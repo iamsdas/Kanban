@@ -8,3 +8,14 @@ export const useUser = () =>
 
 export const useBoards = () =>
   useQuery('boards', () => request<Paginated<IBoard>>('boards'));
+
+export const useBoard = (id: number) =>
+  useQuery(['boards', id], () => request<IBoard>(`boards/${id}`));
+
+export const useStages = (id: number) =>
+  useQuery(['stages', id], () => request<IStage[]>(`boards/${id}/status`));
+
+export const useTasks = (id: number) =>
+  useQuery(['tasks', id], () =>
+    request<Paginated<ITask>>(`boards/${id}/tasks`)
+  );

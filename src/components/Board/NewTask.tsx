@@ -1,33 +1,22 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { request } from '../../utils';
 import OutlineButton from '../common/OutlineButton';
 
-const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
+const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
   const queryClient = useQueryClient();
-  const [title, setTitle] = useState(props.board.title);
-  const [description, setDesc] = useState(props.board.description);
-
-  const newBoard = {
-    ...props.board,
-    title,
-    description,
-  };
+  const { id } = useParams();
 
   const mutation = useMutation(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      return request<IBoard>(`boards/${props.board.id}`, 'PATCH', newBoard);
+      const input = new FormData(e.target as HTMLFormElement);
+      return request<ITask>(`boards/${id}/tasks`, 'POST', input);
     },
     {
-      onMutate: async () => {
-        await queryClient.cancelQueries('boards');
-        const prev = queryClient.getQueryData('boards');
-        queryClient.setQueryData(['boards', props.board.id], (old) => newBoard);
-        return { prev };
-      },
       onSuccess: () => {
-        queryClient.invalidateQueries('boards');
+        queryClient.invalidateQueries('tasks');
       },
     }
   );
@@ -35,13 +24,11 @@ const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
   return (
     <form onSubmit={mutation.mutate}>
       <div className='flex flex-col justify-between py-2 gap-1'>
-        <label htmlFor='title'>Title</label>
+        <label htmlFor='title'>Task Name</label>
         <input
           type='text'
           name='title'
           id='title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
       </div>
@@ -52,18 +39,28 @@ const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
           id='desc'
           cols={30}
           rows={2}
-          value={description}
-          onChange={(e) => setDesc(e.target.value)}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
+      <div className='py-2 pb-4'>
+        <select
+          name='status'
+          id='status'
+          className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'>
+          {props.stages.map((status) => (
+            <option value={status.id}>{status.title}</option>
+          ))}
+        </select>
+      </div>
+      <input type='hidden' name='board' value={id} />
+      <input type='hidden' name='completed' value={'false'} />
       <OutlineButton
         onClickCB={() => {
           props.closeModalCB();
         }}
-        label={'Update'}
+        label={'Add Task'}
       />
     </form>
   );
 };
 
-export default EditBoardForm;
+export default NewTask;

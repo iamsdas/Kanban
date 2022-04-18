@@ -4,6 +4,22 @@ interface IBoard {
   description?: string;
 }
 
+interface IStage {
+  id: number;
+  title: string;
+  board: number;
+}
+
+interface ITask {
+  id: number;
+  title: string;
+  board: number;
+  status: number;
+  dueDate: string;
+  description: string;
+  completed: boolean;
+}
+
 type Paginated<T> = {
   count: number;
   next: string;
