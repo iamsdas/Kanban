@@ -16,7 +16,7 @@ const SideNav = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    queryClient.invalidateQueries('user');
+    queryClient.resetQueries();
     navigate('/login');
   };
 
