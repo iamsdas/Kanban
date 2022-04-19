@@ -50,7 +50,7 @@ const Board = () => {
           />
         </div>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+      <div className='flex gap-4 overflow-x-auto pb-8'>
         {stages &&
           stages.map((stage) => <StageCard key={stage.id} stage={stage} />)}
       </div>

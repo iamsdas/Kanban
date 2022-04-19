@@ -23,7 +23,7 @@ const StageCard = ({ stage }: { stage: IStage }) => {
   );
 
   return (
-    <div className='p-6 bg-white rounded-xl text-gray-600'>
+    <div className='p-6 bg-white rounded-xl text-gray-600 w-1/4 flex-grow max-w-xl flex-shrink-0'>
       <div className='flex justify-between items-center mb-3 border-b-4 border-neutral-500'>
         <div className='font-semibold capitalize text-2xl'>{stage.title}</div>
         <div className='flex gap-1 flex-nowrap'>
@@ -38,12 +38,12 @@ const StageCard = ({ stage }: { stage: IStage }) => {
         tasks.length !== 0 ? (
           tasks.map((task) => <TaskCard task={task} key={task.id} />)
         ) : (
-          <div className='py-8 text-center text-xl text-neutral-400'>
+          <div className='-mt-4 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
             No Tasks
           </div>
         )
       ) : (
-        <div className='py-8 text-center text-xl text-neutral-400'>
+        <div className='py-8 pb-14 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
           Loading...
         </div>
       )}
