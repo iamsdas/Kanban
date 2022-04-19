@@ -1,6 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../utils';
+import Loader from '../common/Loader';
 import SideNav from './SideNav';
 
 const Layout = (props: { children: ReactNode }) => {
@@ -10,6 +11,8 @@ const Layout = (props: { children: ReactNode }) => {
   useEffect(() => {
     if ((isError || !data?.username) && !isLoading) navigate('/login');
   }, [isError, data]);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className='flex'>

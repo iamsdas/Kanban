@@ -1,14 +1,17 @@
 import { FormEvent } from 'react';
 import { request } from '../../utils';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const input = new FormData(e.target as HTMLFormElement);
     try {
       localStorage.removeItem('token');
-      const res = await request('auth/registration', 'POST', input);
-      console.log(res);
+      await request('auth/registration', 'POST', input);
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
