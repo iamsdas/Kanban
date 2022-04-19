@@ -6,7 +6,7 @@ import OutlineButton from '../common/OutlineButton';
 const NewTask = (props: { closeModalCB: () => void }) => {
   const queryClient = useQueryClient();
   const { data } = useBoards();
-  const [board, setBoard] = useState(1);
+  const [board, setBoard] = useState(-1);
   const { data: stages } = useStages(board);
   const boards = data?.results ?? [];
 
@@ -62,7 +62,11 @@ const NewTask = (props: { closeModalCB: () => void }) => {
           id='board'
           value={board}
           onChange={(e) => setBoard(parseInt(e.target.value))}
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'>
+          <option value='-1' disabled={true}>
+            select board
+          </option>
           {boards.map((board) => (
             <option key={board.id} value={board.id}>
               {board.title}

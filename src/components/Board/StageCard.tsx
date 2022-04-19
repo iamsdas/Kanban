@@ -34,7 +34,19 @@ const StageCard = ({ stage }: { stage: IStage }) => {
           />
         </div>
       </div>
-      {tasks && tasks.map((task) => <TaskCard task={task} key={task.id} />)}
+      {tasks ? (
+        tasks.length !== 0 ? (
+          tasks.map((task) => <TaskCard task={task} key={task.id} />)
+        ) : (
+          <div className='py-8 text-center text-xl text-neutral-400'>
+            No Tasks
+          </div>
+        )
+      ) : (
+        <div className='py-8 text-center text-xl text-neutral-400'>
+          Loading...
+        </div>
+      )}
     </div>
   );
 };

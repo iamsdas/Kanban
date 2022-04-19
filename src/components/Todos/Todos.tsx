@@ -16,7 +16,7 @@ const todoSort = (a: ITask, b: ITask) => {
 
 const Todos = () => {
   const [filter, setFilter] = useState('today');
-  const { data, isLoading } = useGlobalTasks(filter);
+  const { data: tasks, isLoading } = useGlobalTasks(filter);
   const [gridMode, setGridMode] = useState(true);
   const [newModalOpen, setNewModalOpen] = useState(false);
 
@@ -46,6 +46,8 @@ const Todos = () => {
           className='rounded-xl focus:outline-none focus:ring-0 border-2 bg-inherit border-neutral-500 font-semibold focus:border-neutral-800 text-neutral-600 py-2 pr-9 text-lg'>
           <option value='today'>today</option>
           <option value='tomorrow'>tomorrow</option>
+          <option value='n_week'>next week</option>
+          <option value='overdue'>overdue</option>
         </select>
         <div className='text-neutral-500 flex'>
           <button
@@ -64,17 +66,22 @@ const Todos = () => {
           </button>
         </div>
       </div>
-      <div
-        className={
-          gridMode
-            ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'
-            : 'flex flex-col gap-4 mx-auto'
-        }>
-        {data &&
-          [...data]
-            .sort(todoSort)
-            .map((task) => <TaskCard key={task.id} task={task} />)}
-      </div>
+      {tasks && tasks.length !== 0 ? (
+        <div
+          className={
+            gridMode
+              ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'
+              : 'flex flex-col gap-4 mx-auto'
+          }>
+          {[...tasks].sort(todoSort).map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+      ) : (
+        <div className='h-full -mt-28 w-full flex justify-center items-center text-2xl text-neutral-400'>
+          No Tasks Scheduled
+        </div>
+      )}
       <Modal closeModalCB={() => setNewModalOpen(false)} open={newModalOpen}>
         <NewTask closeModalCB={() => setNewModalOpen(false)} />
       </Modal>
