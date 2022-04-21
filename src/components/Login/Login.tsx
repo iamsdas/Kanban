@@ -1,7 +1,8 @@
 import { FormEvent, useEffect } from 'react';
 import { request, useUser } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
+import Loader from '../common/Loader';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -16,16 +17,19 @@ export default function Login() {
     e.preventDefault();
     localStorage.removeItem('token');
     const input = new FormData(e.target as HTMLFormElement);
-    try {
-      const res = await request<{ token: string }>('auth-token', 'POST', input);
+    return request<{ token: string }>('auth-token', 'POST', input);
+  };
+
+  const { isLoading, error, mutate } = useMutation(onSubmitHandler, {
+    onSuccess: (res) => {
       localStorage.setItem('token', res.token);
       queryClient.invalidateQueries('user');
       navigate('/');
-    } catch (error) {
+    },
+    onError: () => {
       localStorage.removeItem('token');
-      console.error(error);
-    }
-  };
+    },
+  });
 
   return (
     <div className='h-screen bg-neutral-100'>
@@ -36,7 +40,7 @@ export default function Login() {
               Sign in to your account
             </h2>
           </div>
-          <form className='mt-8 space-y-6' onSubmit={onSubmitHandler}>
+          <form className='mt-8 space-y-6' onSubmit={mutate}>
             <div className='rounded-md shadow-sm -space-y-px'>
               <div>
                 <label htmlFor='username' className='sr-only'>
@@ -72,8 +76,19 @@ export default function Login() {
                 type='submit'
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent font-medium rounded-md text-white bg-neutral-600 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
                 Sign in
+                {isLoading && (
+                  <span>
+                    <Loader notExpanded={true} />
+                  </span>
+                )}
               </button>
             </div>
+            {error && (
+              <span className='text-red-400 text-sm overflow-auto'>
+                Error loging in, are you sure this is the right username and/or
+                password?
+              </span>
+            )}
           </form>
         </div>
       </div>
