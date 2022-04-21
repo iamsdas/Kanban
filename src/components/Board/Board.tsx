@@ -25,7 +25,7 @@ const Board = () => {
     );
 
   const { title } = boardQuery.data!;
-  const stages = stagesQuery.data!;
+  const stages = stagesQuery.data ?? [];
 
   return (
     <Layout>
@@ -50,10 +50,16 @@ const Board = () => {
           />
         </div>
       </div>
-      <div className='flex gap-4 overflow-x-auto pb-8'>
-        {stages &&
-          stages.map((stage) => <StageCard key={stage.id} stage={stage} />)}
-      </div>
+      {stages.length !== 0 ? (
+        <div className='flex gap-4 overflow-x-auto pb-8'>
+          {stages &&
+            stages.map((stage) => <StageCard key={stage.id} stage={stage} />)}
+        </div>
+      ) : (
+        <div className='h-full -mt-16 w-full flex justify-center items-center text-2xl text-neutral-400'>
+          Create a new stage to get started
+        </div>
+      )}
       <Modal
         closeModalCB={() => setNewStageModalOpen(false)}
         open={newStageModalOpen}>

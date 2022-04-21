@@ -43,7 +43,7 @@ const Todos = () => {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className='rounded-xl focus:outline-none focus:ring-0 border-2 bg-inherit border-neutral-500 font-semibold focus:border-neutral-800 text-neutral-600 py-2 pr-9 text-lg'>
+          className='rounded-xl focus:outline-none focus:ring-0 border-2 bg-inherit border-neutral-400 font-semibold focus:border-neutral-800 text-neutral-500 py-2 pr-9 text-lg'>
           <option value='today'>today</option>
           <option value='tomorrow'>tomorrow</option>
           <option value='n_week'>next week</option>
@@ -52,14 +52,14 @@ const Todos = () => {
         <div className='text-neutral-500 flex'>
           <button
             onClick={() => setGridMode(true)}
-            className={`border-neutral-500 hover:text-neutral-300 border-2 border-r-0 p-1 rounded-l-xl ${
+            className={`border-neutral-400 hover:text-neutral-300 border-2 border-r-0 p-1 rounded-l-xl ${
               gridMode ? 'text-neutral-500' : 'text-neutral-400'
             }`}>
             <ViewGridIcon className='w-7 h-7' />
           </button>
           <button
             onClick={() => setGridMode(false)}
-            className={`border-neutral-500 hover:text-neutral-300 border-2 p-1 rounded-r-xl ${
+            className={`border-neutral-400 hover:text-neutral-300 border-2 p-1 rounded-r-xl ${
               !gridMode ? 'text-neutral-500' : 'text-neutral-400'
             }`}>
             <ViewListIcon className='w-7 h-7' />
