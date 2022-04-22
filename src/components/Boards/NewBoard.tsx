@@ -39,7 +39,6 @@ const NewBoardForm = (props: { closeModalCB: () => void }) => {
           id='desc'
           cols={30}
           rows={2}
-          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
       <OutlineButton onClickCB={() => {}} label={'Add'} />

@@ -41,7 +41,6 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
           id='desc'
           cols={30}
           rows={2}
-          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
       <div className='flex flex-col justify-between py-2 gap-1'>

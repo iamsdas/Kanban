@@ -17,7 +17,9 @@ const Layout = (props: { children: ReactNode }) => {
   return (
     <div className='flex'>
       <SideNav />
-      <div className='p-7 bg-neutral-100 flex-grow'>{props.children}</div>
+      <div className='p-7 bg-neutral-100 flex-grow overflow-y-auto'>
+        {props.children}
+      </div>
     </div>
   );
 };
