@@ -15,9 +15,9 @@ const Layout = (props: { children: ReactNode }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className='flex'>
+    <div className='flex h-screen'>
       <SideNav />
-      <div className='p-7 bg-neutral-100 flex-grow overflow-y-auto'>
+      <div className='p-7 bg-neutral-100 flex-grow overflow-y-scroll'>
         {props.children}
       </div>
     </div>

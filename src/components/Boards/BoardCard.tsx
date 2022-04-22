@@ -26,7 +26,9 @@ const BoardCard = ({ board }: { board: IBoard }) => {
     <div className='p-6 bg-white rounded-xl text-gray-600'>
       <div className='flex justify-between items-center'>
         <div className='font-semibold capitalize text-lg'>
-          <Link to={`/boards/${board.id}`}>{board.title}</Link>
+          <Link to={`/boards/${board.id}`} className='hover:text-neutral-500'>
+            {board.title}
+          </Link>
         </div>
         <div className='flex gap-1 flex-nowrap'>
           <OutlineButton
