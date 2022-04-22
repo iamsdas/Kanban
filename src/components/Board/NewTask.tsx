@@ -17,6 +17,7 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks');
+        props.closeModalCB();
       },
     }
   );
@@ -29,6 +30,7 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
           type='text'
           name='title'
           id='title'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
       </div>
@@ -39,6 +41,7 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
           id='desc'
           cols={30}
           rows={2}
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
       <div className='flex flex-col justify-between py-2 gap-1'>
@@ -47,12 +50,17 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
           name='due_date'
           id='date'
           type='date'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></input>
       </div>
       <div className='py-2 pb-4'>
+        <label htmlFor='status' className='pr-2'>
+          Stage
+        </label>
         <select
           name='status'
           id='status'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'>
           {props.stages.map((status) => (
             <option value={status.id}>{status.title}</option>
@@ -61,12 +69,7 @@ const NewTask = (props: { closeModalCB: () => void; stages: IStage[] }) => {
       </div>
       <input type='hidden' name='board' value={id} />
       <input type='hidden' name='completed' value={'false'} />
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Add Task'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Add Task'} />
     </form>
   );
 };

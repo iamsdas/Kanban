@@ -17,6 +17,7 @@ const NewStage = (props: { closeModalCB: () => void }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('stages');
+        props.closeModalCB();
       },
     }
   );
@@ -29,16 +30,12 @@ const NewStage = (props: { closeModalCB: () => void }) => {
           type='text'
           name='title'
           id='title'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
         <input type='hidden' name='board' value={id} />
       </div>
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Add Stage'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Add Stage'} />
     </form>
   );
 };

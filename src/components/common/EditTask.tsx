@@ -40,6 +40,7 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
         return { prev };
       },
       onSuccess: () => {
+        props.closeModalCB();
         queryClient.invalidateQueries('tasks');
       },
     }
@@ -80,7 +81,7 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></input>
       </div>
       <div className='flex flex-col justify-between py-2 gap-1 pb-4'>
-        <label htmlFor='status'>Description</label>
+        <label htmlFor='status'>Stage</label>
         <select
           name='status'
           id='status'
@@ -95,12 +96,7 @@ const EditTaskForm = (props: { closeModalCB: () => void; task: ITask }) => {
             ))}
         </select>
       </div>
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Update'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Update'} />
     </form>
   );
 };

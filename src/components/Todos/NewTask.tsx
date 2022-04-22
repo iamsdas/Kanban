@@ -23,6 +23,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('tasks');
+        props.closeModalCB();
       },
     }
   );
@@ -35,6 +36,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
           type='text'
           name='title'
           id='title'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
       </div>
@@ -45,6 +47,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
           id='desc'
           cols={30}
           rows={2}
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
       <div className='flex flex-col justify-between py-2 gap-1'>
@@ -53,6 +56,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
           name='due_date'
           id='date'
           type='date'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></input>
       </div>
       <div className='flex flex-col justify-between py-2 gap-1'>
@@ -79,7 +83,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
         <select
           name='status'
           id='status'
-          required
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'>
           {stages &&
             stages.map((status) => (
@@ -90,12 +94,7 @@ const NewTask = (props: { closeModalCB: () => void }) => {
         </select>
       </div>
       <input type='hidden' name='completed' value={'false'} />
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Add Task'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Add Task'} />
     </form>
   );
 };

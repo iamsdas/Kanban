@@ -28,6 +28,7 @@ const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
       },
       onSuccess: () => {
         queryClient.invalidateQueries('boards');
+        props.closeModalCB();
       },
     }
   );
@@ -41,6 +42,7 @@ const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
           name='title'
           id='title'
           value={title}
+          required={true}
           onChange={(e) => setTitle(e.target.value)}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
@@ -53,15 +55,11 @@ const EditBoardForm = (props: { closeModalCB: () => void; board: IBoard }) => {
           cols={30}
           rows={2}
           value={description}
+          required={true}
           onChange={(e) => setDesc(e.target.value)}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Update'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Update'} />
     </form>
   );
 };

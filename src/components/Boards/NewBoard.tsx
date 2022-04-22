@@ -15,6 +15,7 @@ const NewBoardForm = (props: { closeModalCB: () => void }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('boards');
+        props.closeModalCB();
       },
     }
   );
@@ -27,6 +28,7 @@ const NewBoardForm = (props: { closeModalCB: () => void }) => {
           type='text'
           name='title'
           id='title'
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'
         />
       </div>
@@ -37,14 +39,10 @@ const NewBoardForm = (props: { closeModalCB: () => void }) => {
           id='desc'
           cols={30}
           rows={2}
+          required={true}
           className='rounded-md focus:outline-none focus:ring-0 border border-neutral-300 focus:border-neutral-500'></textarea>
       </div>
-      <OutlineButton
-        onClickCB={() => {
-          props.closeModalCB();
-        }}
-        label={'Add'}
-      />
+      <OutlineButton onClickCB={() => {}} label={'Add'} />
     </form>
   );
 };
