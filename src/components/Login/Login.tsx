@@ -1,6 +1,6 @@
 import { FormEvent, useEffect } from 'react';
 import { request, useUser } from '../../utils';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
 import Loader from '../common/Loader';
 
@@ -21,15 +21,20 @@ export default function Login() {
   };
 
   const { isLoading, error, mutate } = useMutation(onSubmitHandler, {
+    retry: false,
     onSuccess: (res) => {
       localStorage.setItem('token', res.token);
       queryClient.invalidateQueries('user');
       navigate('/');
     },
-    onError: () => {
+    onError: (e) => {
       localStorage.removeItem('token');
     },
   });
+
+  const errors: string[] = error
+    ? JSON.parse((error as Error).message)['non_field_errors']
+    : [];
 
   return (
     <div className='h-screen bg-neutral-100'>
@@ -69,6 +74,14 @@ export default function Login() {
                   className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-neutral-500 focus:border-neutral-500 focus:z-10'
                   placeholder='Password'
                 />
+                {error &&
+                  errors.map((error) => (
+                    <span
+                      key={error}
+                      className='text-red-400 text-sm overflow-auto'>
+                      {error}
+                    </span>
+                  ))}
               </div>
             </div>
             <div>
@@ -83,12 +96,12 @@ export default function Login() {
                 )}
               </button>
             </div>
-            {error && (
-              <span className='text-red-400 text-sm overflow-auto'>
-                Error loging in, are you sure this is the right username and/or
-                password?
-              </span>
-            )}
+            <span className='text-neutral-500'>
+              Don't have an account yet? Sign up over{' '}
+              <Link to='/signup' className='font-semibold'>
+                here.
+              </Link>
+            </span>
           </form>
         </div>
       </div>

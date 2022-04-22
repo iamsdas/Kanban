@@ -38,6 +38,7 @@ export const request = async <T>(
   });
 
   const json = await response.json();
+
   if (response.ok) return await json;
-  else throw Error(json);
+  else throw new Error(JSON.stringify(json));
 };
