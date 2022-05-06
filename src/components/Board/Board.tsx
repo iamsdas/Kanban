@@ -5,7 +5,6 @@ import { useBoard, useStages } from '../../utils';
 import Loader from '../common/Loader';
 import Modal from '../common/Modal';
 import OutlineButton from '../common/OutlineButton';
-import Layout from '../Layout';
 import NewStage from './NewStage';
 import NewTask from './NewTask';
 import StageCard from './StageCard';
@@ -17,18 +16,13 @@ const Board = () => {
   const boardQuery = useBoard(parseInt(id!));
   const stagesQuery = useStages(parseInt(id!));
 
-  if (boardQuery.isLoading || stagesQuery.isLoading)
-    return (
-      <Layout>
-        <Loader />
-      </Layout>
-    );
+  if (boardQuery.isLoading || stagesQuery.isLoading) return <Loader />;
 
   const { title } = boardQuery.data!;
   const stages = stagesQuery.data ?? [];
 
   return (
-    <Layout>
+    <div className='h-screen py-7 flex flex-col'>
       <div className='flex flex-col lg:flex-row justify-between items-center pb-5'>
         <h1 className='py-2 text-4xl font-semibold text-gray-700 capitalize'>
           {title}
@@ -50,16 +44,18 @@ const Board = () => {
           />
         </div>
       </div>
-      {stages.length !== 0 ? (
-        <div className='flex gap-4 overflow-x-auto pb-8'>
-          {stages &&
-            stages.map((stage) => <StageCard key={stage.id} stage={stage} />)}
-        </div>
-      ) : (
-        <div className='h-full -mt-16 w-full flex justify-center items-center text-2xl text-neutral-400'>
-          Create a new stage to get started
-        </div>
-      )}
+      <div className='h-full py-2 flex-grow-0'>
+        {stages.length !== 0 ? (
+          <div className='flex gap-4 overflow-x-auto flex-grow'>
+            {stages &&
+              stages.map((stage) => <StageCard key={stage.id} stage={stage} />)}
+          </div>
+        ) : (
+          <div className='h-full -mt-16 w-full flex justify-center items-center text-2xl text-neutral-400'>
+            Create a new stage to get started
+          </div>
+        )}
+      </div>
       <Modal
         closeModalCB={() => setNewStageModalOpen(false)}
         open={newStageModalOpen}>
@@ -73,7 +69,7 @@ const Board = () => {
           closeModalCB={() => setNewTaskModalOpen(false)}
         />
       </Modal>
-    </Layout>
+    </div>
   );
 };
 

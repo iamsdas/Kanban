@@ -27,7 +27,7 @@ export default function Signup() {
   const errors: any = isError ? JSON.parse((error as Error).message) : null;
 
   return (
-    <div className='h-screen bg-neutral-100'>
+    <div className='h-full bg-neutral-100'>
       <div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-md w-full space-y-8 bg-white p-8 rounded-3xl'>
           <div>

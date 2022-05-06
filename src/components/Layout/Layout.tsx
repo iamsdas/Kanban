@@ -17,7 +17,7 @@ const Layout = (props: { children: ReactNode }) => {
   return (
     <div className='flex h-screen'>
       <SideNav />
-      <div className='p-7 bg-neutral-100 flex-grow overflow-y-scroll'>
+      <div className='px-7 bg-neutral-100 flex-grow overflow-y-auto'>
         {props.children}
       </div>
     </div>

@@ -2,7 +2,6 @@ import { PlusIcon, ViewListIcon, ViewGridIcon } from '@heroicons/react/outline';
 import NewTask from './NewTask';
 import Modal from '../common/Modal';
 import OutlineButton from '../common/OutlineButton';
-import Layout from '../Layout';
 import { useState } from 'react';
 import { useGlobalTasks } from '../../utils';
 import TaskCard from './TaskCard';
@@ -20,15 +19,10 @@ const Todos = () => {
   const [gridMode, setGridMode] = useState(true);
   const [newModalOpen, setNewModalOpen] = useState(false);
 
-  if (isLoading)
-    return (
-      <Layout>
-        <Loader />
-      </Layout>
-    );
+  if (isLoading) return <Loader />;
 
   return (
-    <Layout>
+    <div className='h-full py-7'>
       <div className='flex justify-between items-center pb-5'>
         <h1 className='py-2 text-4xl font-semibold text-gray-700'>To Do</h1>
         <OutlineButton
@@ -85,7 +79,7 @@ const Todos = () => {
       <Modal closeModalCB={() => setNewModalOpen(false)} open={newModalOpen}>
         <NewTask closeModalCB={() => setNewModalOpen(false)} />
       </Modal>
-    </Layout>
+    </div>
   );
 };
 

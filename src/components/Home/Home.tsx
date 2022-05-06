@@ -1,5 +1,4 @@
 import { useGlobalTasks, useUser } from '../../utils';
-import Layout from '../Layout';
 import Loader from '../common/Loader';
 
 const Home = () => {
@@ -7,12 +6,7 @@ const Home = () => {
   const tasksQuery = useGlobalTasks('none');
   const tasks = tasksQuery.data ?? [];
 
-  if (userQuery.isLoading || tasksQuery.isLoading)
-    return (
-      <Layout>
-        <Loader />
-      </Layout>
-    );
+  if (userQuery.isLoading || tasksQuery.isLoading) return <Loader />;
 
   const username = userQuery.data?.username;
   const completedCount = tasks.filter((task) => task.completed).length;
@@ -20,7 +14,7 @@ const Home = () => {
   const currCount = totalCount - completedCount;
 
   return (
-    <Layout>
+    <div className='h-full py-7'>
       <h1 className='py-2 text-4xl font-semibold text-gray-700 capitalize text-center'>
         Welcome back,{' '}
         <span className='normal-case font-bold'>{username} !</span>
@@ -39,7 +33,7 @@ const Home = () => {
           <div className='font-bold text-5xl'>{totalCount}</div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

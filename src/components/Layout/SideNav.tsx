@@ -7,12 +7,13 @@ import { useQueryClient } from 'react-query';
 import { useUser } from '../../utils';
 
 import NavButton from './NavButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SideNav = () => {
   const { data, isLoading } = useUser();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -21,7 +22,12 @@ const SideNav = () => {
   };
 
   return (
-    <div className='flex-shrink-0 w-60 h-screen shadow-md bg-white py-3 flex flex-col justify-between'>
+    <div
+      className={`${
+        pathname === '/login' || pathname === '/signup'
+          ? 'hidden'
+          : 'flex-shrink-0 w-60 h-screen shadow-md bg-white py-3 flex flex-col justify-between'
+      }`}>
       <nav>
         <div className='border-b py-2 px-6 text-3xl font-semibold text-gray-700'>
           Kanban

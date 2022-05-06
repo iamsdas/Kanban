@@ -23,7 +23,7 @@ const StageCard = ({ stage }: { stage: IStage }) => {
   );
 
   return (
-    <div className='p-6 bg-white rounded-xl text-gray-600 w-1/4 flex-grow max-w-xl flex-shrink-0'>
+    <div className='flex flex-col p-6 bg-white rounded-xl text-gray-600 w-1/4 flex-grow max-w-lg flex-shrink-0 overflow-y-auto'>
       <div className='flex justify-between items-center mb-3 border-b-4 border-neutral-500'>
         <div className='font-semibold capitalize text-2xl'>{stage.title}</div>
         <div className='flex gap-1 flex-nowrap'>
@@ -34,19 +34,21 @@ const StageCard = ({ stage }: { stage: IStage }) => {
           />
         </div>
       </div>
-      {tasks ? (
-        tasks.length !== 0 ? (
-          tasks.map((task) => <TaskCard task={task} key={task.id} />)
+      <div className='flex-grow overflow-y-auto'>
+        {tasks ? (
+          tasks.length !== 0 ? (
+            tasks.map((task) => <TaskCard task={task} key={task.id} />)
+          ) : (
+            <div className='-mt-4 py-8 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
+              No Tasks
+            </div>
+          )
         ) : (
-          <div className='-mt-4 py-8 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
-            No Tasks
+          <div className='py-8 pb-14 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
+            Loading...
           </div>
-        )
-      ) : (
-        <div className='py-8 pb-14 text-center text-xl text-neutral-400 flex w-full justify-center items-center h-full'>
-          Loading...
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

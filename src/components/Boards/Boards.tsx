@@ -1,4 +1,3 @@
-import Layout from '../Layout';
 import OutlineButton from '../common/OutlineButton';
 import { PlusIcon } from '@heroicons/react/outline';
 import { useBoards } from '../../utils';
@@ -12,15 +11,10 @@ const Boards = () => {
   const { data, isLoading } = useBoards();
   const [newModalOpen, setNewModalOpen] = useState(false);
 
-  if (isLoading)
-    return (
-      <Layout>
-        <Loader />
-      </Layout>
-    );
+  if (isLoading) return <Loader />;
 
   return (
-    <Layout>
+    <div className='h-full py-7'>
       <div className='flex justify-between items-center pb-5'>
         <h1 className='py-2 text-4xl font-semibold text-gray-700'>My Boards</h1>
         <OutlineButton
@@ -45,7 +39,7 @@ const Boards = () => {
       <Modal closeModalCB={() => setNewModalOpen(false)} open={newModalOpen}>
         <NewBoardForm closeModalCB={() => setNewModalOpen(false)} />
       </Modal>
-    </Layout>
+    </div>
   );
 };
 
